@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/<your-repo>.git'
+                git branch: 'main', url: 'https://github.com/rajivsiddiqui/helm-jenkins-k8s-nodejs.git'
             }
         }
 
