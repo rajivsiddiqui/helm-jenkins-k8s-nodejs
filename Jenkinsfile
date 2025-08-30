@@ -36,18 +36,18 @@ pipeline {
             }
         }
 
-        // stage('Deploy to Kubernetes via Helm') {
-        //     steps {
-        //         script {
-        //             sh """
-        //                 kubectl config use-context $KUBE_CONTEXT
-        //                 helm upgrade --install $HELM_RELEASE ./nodejs-app \
-        //                   --set image.repository=$DOCKERHUB_USER/$APP_NAME \
-        //                   --set image.tag=$APP_VERSION
-        //             """
-        //         }
-        //     }
-        // }
+        stage('Deploy to Kubernetes via Helm') {
+            steps {
+                script {
+                    sh """
+                        kubectl config use-context $KUBE_CONTEXT
+                        helm upgrade --install $HELM_RELEASE ./nodejs-app \
+                          --set image.repository=$DOCKERHUB_USER/$APP_NAME \
+                          --set image.tag=$APP_VERSION
+                    """
+                }
+            }
+        }
     }
 
     post {
