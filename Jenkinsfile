@@ -25,16 +25,16 @@ pipeline {
             }
         }
 
-        // stage('Push Docker Image') {
-        //     steps {
-        //         withCredentials([usernamePassword(credentialsId: "${DOCKERHUB_CREDENTIALS}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-        //             sh """
-        //                 echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-        //                 docker push $DOCKERHUB_USER/$APP_NAME:$APP_VERSION
-        //             """
-        //         }
-        //     }
-        // }
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: "${DOCKERHUB_CREDENTIALS}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh """
+                        echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                        docker push $DOCKERHUB_USER/$APP_NAME:$APP_VERSION
+                    """
+                }
+            }
+        }
 
         // stage('Deploy to Kubernetes via Helm') {
         //     steps {
