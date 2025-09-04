@@ -41,12 +41,12 @@ pipeline {
         stage('Deploy to Kubernetes via Helm') {
             steps {
                 script {
-                    withCredentials([file(credentialsId: 'kubeconfig-cred-4sep2025', variable: 'KUBECONFIG')]) {
+                    withCredentials([file(credentialsId: 'minikube-kubeconfig', variable: 'KUBECONFIG')]) {
                         sh """
-                            kubectl config use-context $KUBE_CONTEXT
+                            kubectl config use-context minikube
                             helm upgrade --install $HELM_RELEASE ./nodejs-app \
-                              --set image.repository=$DOCKERHUB_USER/$APP_NAME \
-                              --set image.tag=$APP_VERSION
+                            --set image.repository=$DOCKERHUB_USER/$APP_NAME \
+                            --set image.tag=$APP_VERSION
                         """
                     }
                 }
