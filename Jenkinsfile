@@ -8,6 +8,8 @@ pipeline {
         APP_VERSION = '1.0'
         KUBE_CONTEXT = 'minikube'
         HELM_RELEASE = 'nodejs-app'
+        KUBECONFIG = "/var/lib/jenkins/kube-minikube/config"
+        MINIKUBE_HOME = "/var/lib/jenkins/kube-minikube/.minikube"
     }
 
     stages {
