@@ -11,11 +11,11 @@ pipeline {
     }
 
     stages {
-        // stage('Checkout') {
-        //     steps {
-        //         git branch: 'main', url: 'https://github.com/rajivsiddiqui/helm-jenkins-k8s-nodejs.git'
-        //     }
-        // }
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/rajivsiddiqui/helm-jenkins-k8s-nodejs.git'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
@@ -39,12 +39,14 @@ pipeline {
         stage('Deploy to Kubernetes via Helm') {
             steps {
                 script {
-                    sh """
-                        kubectl config use-context $KUBE_CONTEXT
-                        helm upgrade --install $HELM_RELEASE ./nodejs-app \
-                          --set image.repository=$DOCKERHUB_USER/$APP_NAME \
-                          --set image.tag=$APP_VERSION
-                    """
+                    withCredentials([file(credentialsId: 'kubeconfig-cred-4sep2025', variable: 'KUBECONFIG')]) {
+                        sh """
+                            kubectl config use-context $KUBE_CONTEXT
+                            helm upgrade --install $HELM_RELEASE ./nodejs-app \
+                              --set image.repository=$DOCKERHUB_USER/$APP_NAME \
+                              --set image.tag=$APP_VERSION
+                        """
+                    }
                 }
             }
         }
@@ -52,10 +54,10 @@ pipeline {
 
     post {
         success {
-            echo 'Deployment Successful 🎉'
+            echo '✅ Deployment Successful 🎉'
         }
         failure {
-            echo 'Deployment Failed ❌'
+            echo '❌ Deployment Failed'
         }
     }
 }
