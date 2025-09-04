@@ -5,7 +5,8 @@ pipeline {
         DOCKERHUB_CREDENTIALS = 'docker-hub-credential'
         DOCKERHUB_USER = 'devopssteps'
         APP_NAME = 'nodejs-app'
-        APP_VERSION = '1.0'
+        //APP_VERSION = '1.0'
+        APP_VERSION = "build-${env.BUILD_NUMBER}"
         KUBE_CONTEXT = 'minikube'
         HELM_RELEASE = 'nodejs-app'
         KUBECONFIG = "/var/lib/jenkins/kube-minikube/config"
