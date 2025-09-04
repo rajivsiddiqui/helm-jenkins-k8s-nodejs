@@ -21,7 +21,7 @@ const APP_NAME = process.env.APP_NAME || "Node Docker Starter";
 
 // Routes
 app.get("/", (_req, res) => {
-  res.send(`🚀 ${APP_NAME} is running. Try /api/health, /api/info, /api/time`);
+  res.send(`Project- ${APP_NAME} is running. Try /api/health, /api/info, /api/time`);
 });
 
 app.get("/api/health", (_req, res) => {
