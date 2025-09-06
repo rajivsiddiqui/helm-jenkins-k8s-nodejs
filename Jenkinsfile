@@ -42,7 +42,7 @@ pipeline {
         stage('Deploy to Kubernetes via Helm') {
             steps {
                 script {
-                    withCredentials([file(credentialsId: 'minikube-kubeconfig', variable: 'KUBECONFIG')]) {
+                    withCredentials([file(credentialsId: 'minikube-kubeconfig1', variable: 'KUBECONFIG')]) {
                         sh """
                             kubectl config use-context minikube
                             helm upgrade --install $HELM_RELEASE ./nodejs-app \
